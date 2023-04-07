@@ -5,19 +5,28 @@ from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.metrics import accuracy_score
 
+#initially reading the given data set
 diabeties_dataset =pd.read_csv("diabetes.csv")
 print (diabeties_dataset.head())
+
+#describing all the mean,sd,some other attributes
 print(diabeties_dataset.describe())
+
+
 print(diabeties_dataset['Outcome'].value_counts())
 print(diabeties_dataset.groupby('Outcome').mean())
+
+#Separating the target coloum from the data as X and Y
 X=diabeties_dataset.drop('Outcome', axis=1)
 Y=diabeties_dataset['Outcome']
+#Standardising all the values between 0 and 1 by using Standardize scalar
 scalar=StandardScaler()
 standardised_data=scalar.fit_transform(X)
 X=standardised_data
 print(X)
 print(Y)
 
+#Splitting the data into test and train data set
 X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2, stratify=Y,random_state=2)
 print(X.shape,X_train.shape,X_test.shape)
 
